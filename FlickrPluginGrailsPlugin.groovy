@@ -11,11 +11,11 @@ class FlickrPluginGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def author = "Your name"
-    def authorEmail = ""
-    def title = "Plugin summary/headline"
+    def author = "José Juan Reyes Zuñiga"
+    def authorEmail = "neodevelop@gmail.com"
+    def title = "Flickr Plugin"
     def description = '''\\
-Brief description of the plugin.
+This plugin is intended to show some flickr photos based in a tag...
 '''
 
     // URL to the plugin's documentation
