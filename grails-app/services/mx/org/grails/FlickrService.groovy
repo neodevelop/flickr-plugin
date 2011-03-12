@@ -1,13 +1,15 @@
-package org.mx.grails
+package mx.org.grails
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class FlickrService {
 
   static transactional = false
+  
+  def api_key = ConfigurationHolder.config.grails.plugins.flickr.apiKey
 
-  def search(tag) {
-    def api_key="533fbdc437466773ba34415203ddee23"
+  def search(tag,perPage) {
     // Armamos la URL para consumo REST
-    def apiUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}"
+    def apiUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}&per_page=${perPage ?: 12}"
     // Usamos nuestro parser para consultarlo y recibir el XML
     def rsp = new XmlParser().parse(apiUrl)
     def urls = []
