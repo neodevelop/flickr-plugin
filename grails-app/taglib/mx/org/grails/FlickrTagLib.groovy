@@ -4,28 +4,22 @@ class FlickrTagLib {
   
   def flickrService
   
-  def pluginManager
-  
   static namespace = "flickr"
   
-  // This taglib receives tag, perPage, cols
+  // This taglib receives tag, perPage
   def search = { attrs, body ->
-    
-    def plugin = pluginManager.getGrailsPlugin('flickr')
-    
-    def urls = flickrService.search(attrs.tag,attrs.perPage)
-    out << "<table id='${attrs.tag}'><tr>"
-    def contador = 0
-    urls.each{ url ->
-      def urlModificada = url.replace("_s.jpg","_b.jpg")
-      out << "<td> <a href='${urlModificada}'><img src='${url}' /></a> </td>"
-      contador++
-      if((contador % (attrs?.cols as Integer ?: 3)) == 0){
-        out << "</tr><tr>"
-      }
-    }
-    
-    out << "</tr></table>"
+    def data = flickrService.search(attrs.tag,attrs.perPage as Integer,1)
+    out << render(
+      template:'/flickr/searchResult',
+      plugin:'flickr',
+      model:[
+        urls:data.urls,
+        tag:attrs.tag,
+        page:data.page[0],
+        pages:data.pages[0],
+        perPage:attrs.perPage as Integer ?: 12,
+      ]
+    )
   }
   
 }
