@@ -9,6 +9,10 @@ grails.project.dependency.resolution = {
         // excludes 'ehcache'
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    plugins{
+      runtime(':jquery:latest.integration')
+      runtime(':jquery-ui:latest.integration')
+    }
     repositories {
         grailsPlugins()
         grailsHome()
