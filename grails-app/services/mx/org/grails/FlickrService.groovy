@@ -7,9 +7,10 @@ class FlickrService {
   
   def api_key = ConfigurationHolder.config.grails.plugins.flickr.apiKey
 
-  def search(tag,perPage) {
+  def search(tag,perPage,page) {
+    def data = [:]
     // Armamos la URL para consumo REST
-    def apiUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}&per_page=${perPage ?: 12}"
+    def apiUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}&per_page=${perPage ?: 12}&page=${page ?: 1}"
     // Usamos nuestro parser para consultarlo y recibir el XML
     def rsp = new XmlParser().parse(apiUrl)
     def urls = []
@@ -25,6 +26,6 @@ class FlickrService {
           urls << "http://farm${it.@farm}.static.flickr.com/${it.@server}/${it.@id}_${it.@secret}_s.jpg"  					
         }	
       }
-      return urls
+      [urls:urls,page:rsp.photos.'@page',pages:rsp.photos.'@pages']
     }
   }
