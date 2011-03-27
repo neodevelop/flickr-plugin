@@ -19,4 +19,5 @@ class FlickrController {
         perPage:params.perPage,
       ])
   }
+
 }

@@ -11,9 +11,13 @@ This plugin is intended to show some flickr photos based in a tag...
     <resource>Config</resource>
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
+    <resource>mx.org.grails.FlickrController</resource>
     <resource>mx.org.grails.FlickrService</resource>
     <resource>mx.org.grails.FlickrTagLib</resource>
   </resources>
-  <dependencies />
+  <dependencies>
+    <plugin name='jquery' version='1.4 &gt; *' />
+    <plugin name='jquery-ui' version='1.8 &gt; *' />
+  </dependencies>
   <behavior />
 </plugin>
