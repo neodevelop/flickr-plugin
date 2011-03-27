@@ -10,8 +10,8 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     plugins{
-      runtime(':jquery:latest.integration')
-      runtime(':jquery-ui:latest.integration')
+      //runtime(':jquery:latest.integration')
+      //runtime(':jquery-ui:latest.integration')
     }
     repositories {
         grailsPlugins()
