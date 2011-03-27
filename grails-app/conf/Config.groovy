@@ -12,5 +12,3 @@
            'net.sf.ehcache.hibernate'
     warn   'org.mortbay.log'
 }
-
-grails.plugins.flickr.apiKey="533fbdc437466773ba34415203ddee23"
