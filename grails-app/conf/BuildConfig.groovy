@@ -3,8 +3,8 @@ grails.project.dependency.resolution = {
     }
     log "warn"
     plugins{
-      runtime(':jquery:latest.integration')
-      runtime(':jquery-ui:latest.integration')
+      //runtime(':jquery:latest.integration')
+      //runtime(':jquery-ui:latest.integration')
     }
     repositories {
         grailsPlugins()
