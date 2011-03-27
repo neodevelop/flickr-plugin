@@ -4,28 +4,38 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class FlickrService {
 
   static transactional = false
-  
+
+  //  API key obtained from Config
   def api_key = ConfigurationHolder.config.grails.plugins.flickr.apiKey
 
-  def search(tag,perPage,page) {
-    def data = [:]
-    // Armamos la URL para consumo REST
-    def apiUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}&per_page=${perPage ?: 12}&page=${page ?: 1}"
-    // Usamos nuestro parser para consultarlo y recibir el XML
-    def rsp = new XmlParser().parse(apiUrl)
+  def search(closure) {
+    // Check if exists an api key
+    if(!api_key)
+      throw new FlickrException(message:"There's not API key...")
+    
+    // We call a builder
+    def api_url = new FlickrSearch().buildUrlToSearch(api_key,closure)
+    fetchXmlFromFlickr(api_url)
+  }
+  
+  def search(Map map){
+    def api_url = new FlickrSearch().buildUrlToSearch(api_key,map)
+    fetchXmlFromFlickr(api_url)
+  }
+  
+  private def fetchXmlFromFlickr(api_url){
+    // We use the parser to obtian XML
+    def rsp = new XmlParser().parse(api_url)
     def urls = []
     if(rsp.'@stat'=="fail"){
-      // TODO: Validar que la api no ha sido correctamente invocada
-      println """
-      <h1>Codigo: <b>${rsp.err.'@code'}</b> Mensaje: <b>${rsp.err.'@msg'}</b></h1>
-      """
-      }else{
-        // Si no arrojo error empezamos a iterar nuestro objeto XML con uso de XmlParser
-        rsp.photos.photo.each{
-          // Generamos ligas e imagenes basados en los resultados del consumo REST
-          urls << "http://farm${it.@farm}.static.flickr.com/${it.@server}/${it.@id}_${it.@secret}_s.jpg"  					
-        }	
-      }
-      [urls:urls,page:rsp.photos.'@page',pages:rsp.photos.'@pages']
+      throw new FlickrException(message:rsp.err.'@msg'[0])
+    }else{
+      // Si no arrojo error empezamos a iterar nuestro objeto XML con uso de XmlParser
+      rsp.photos.photo.each{
+        // Generamos ligas e imagenes basados en los resultados del consumo REST
+        urls << "http://farm${it.@farm}.static.flickr.com/${it.@server}/${it.@id}_${it.@secret}_s.jpg"  					
+      }	
     }
+    [urls:urls,page:rsp.photos.'@page',pages:rsp.photos.'@pages']
   }
+}

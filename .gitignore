@@ -1,0 +1,4 @@
+target/
+stacktrace.log
+web-app/
+*.zip
