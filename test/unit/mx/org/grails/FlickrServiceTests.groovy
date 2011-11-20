@@ -1,4 +1,4 @@
-package org.mx.grails
+package mx.org.grails
 
 import grails.test.*
 
