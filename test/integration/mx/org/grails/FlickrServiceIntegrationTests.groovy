@@ -1,6 +1,7 @@
 package mx.org.grails
 
 import grails.test.*
+import groovy.mock.interceptor.MockFor
 
 class FlickrServiceIntegrationTests extends GrailsUnitTestCase {
   
@@ -8,7 +9,7 @@ class FlickrServiceIntegrationTests extends GrailsUnitTestCase {
   
     protected void setUp() {
         super.setUp()
-        flickrService = new FlickrService();
+        flickrService = new FlickrService()
     }
 
     protected void tearDown() {

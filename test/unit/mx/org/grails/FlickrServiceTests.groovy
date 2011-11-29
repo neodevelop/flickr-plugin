@@ -8,7 +8,14 @@ class FlickrServiceTests extends GrailsUnitTestCase {
   
     protected void setUp() {
         super.setUp()
-        flickrService = new FlickrService();
+        flickrService = new FlickrService()
+        
+        /*def mockXmlParser = new MockFor(XmlParser)
+        mockXmlParser.demand.parse {
+          return "this is my xml"
+        }
+        
+        flickrService.setXmlParser(mockXmlParser.proxyInstance())*/
     }
 
     protected void tearDown() {

@@ -1,11 +1,17 @@
 package mx.org.grails
+
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
-import com.eddgrant.FlickrImage
 
 class FlickrService {
 
   static transactional = false
+  
+  XmlParser xmlParser
+  
+  public FlickrService() {
+    xmlParser = new XmlParser()
+  }
 
   //  API key obtained from Config
   def api_key = ConfigurationHolder.config.grails.plugins.flickr.apiKey
@@ -29,8 +35,8 @@ class FlickrService {
   private def fetchXmlFromFlickr(api_url){
     List<FlickrImage> media = new ArrayList<FlickrImage>();
     
-    // We use the parser to obtian XML
-    def rsp = new XmlParser().parse(api_url)
+    // We use the parser to obtain XML
+    def rsp = xmlParser.parse(api_url)
     def urls = []
     if(rsp.'@stat'=="fail"){
       throw new FlickrException(message:rsp.err.'@msg'[0])
@@ -46,9 +52,11 @@ class FlickrService {
         def publicMedia = it.@ispublic == 1 ? true : false
         
         // Generamos ligas e imagenes basados en los resultados del consumo REST
-        urls << "http://farm${farmId}.static.flickr.com/${serverId}/${mediaId}_${secret}_s.jpg"
         def flickrImage = new FlickrImage(mediaId: mediaId, farmId: farmId, serverId: serverId,
                                           secret: secret, title: title, publicMedia: publicMedia)
+        
+        //TODO: The collection of URL Strings is now superceded by the FlickrImage List. Should we remove this?
+        urls << flickrImage.getUrl(SizeSuffix.SMALL)
         media.add(flickrImage)   					
       }	
     }
