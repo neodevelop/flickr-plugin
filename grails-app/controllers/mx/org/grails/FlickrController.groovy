@@ -7,7 +7,7 @@ class FlickrController {
   def index = { }
 
   def changePage = {
-    def data = flickrService.search(params.tag,params.perPage as Integer,(params.page as Integer) + 1)
+    def data = flickrService.search(params.tag, params.perPage as Integer, params.page as Integer)
     render(
       template:'/flickr/listPhotos',
       plugin:'flickr',
