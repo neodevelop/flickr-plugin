@@ -1,4 +1,4 @@
-<plugin name='flickr' version='0.1' grailsVersion='1.3.7 &gt; *'>
+<plugin name='flickr' version='0.2' grailsVersion='1.3.7 &gt; *'>
   <author>José Juan Reyes Zuñiga</author>
   <authorEmail>neodevelop@gmail.com</authorEmail>
   <title>Flickr Plugin</title>
@@ -11,6 +11,7 @@ This plugin is intended to show some flickr photos based in a tag...
     <resource>Config</resource>
     <resource>UrlMappings</resource>
     <resource>mx.org.grails.FlickrController</resource>
+    <resource>mx.org.grails.FlickrImage</resource>
     <resource>mx.org.grails.FlickrService</resource>
     <resource>mx.org.grails.FlickrTagLib</resource>
     <resource>mx.org.grails.FlickrException</resource>
