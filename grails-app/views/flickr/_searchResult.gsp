@@ -1,8 +1,9 @@
+<%@ page import="mx.org.grails.SizeSuffix" %>
 <div id="album${id}">
   <div id="photos${id}">
-  <g:each in="${urls}" var="url" status="i">
-    <a href="${url.replace('_s.jpg','_b.jpg')}">
-      <img src='${url}' title="${tag}${i}" border="0"/>
+  <g:each in="${photos}" var="photo" status="i">
+    <a href="${photo.url.replace('_s.jpg','_b.jpg')}">
+      <img src='${photo.getUrl(SizeSuffix.SMALL_SQUARE)}' title="${tag}${i}" border="0"/>
     </a>
   </g:each>
   </div>
