@@ -53,8 +53,8 @@ class FlickrServiceIntegrationTests extends GrailsUnitTestCase {
         tags 'springhispano'
       }
       assert response.size() > 0
-      assertNotNull(response.media)
-      response.media.each {
+      assertNotNull(response.photos)
+      response.photos.each {
         assertNotNull(it.mediaId)
         assertNotNull(it.farmId)
         assertNotNull(it.serverId)
