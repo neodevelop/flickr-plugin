@@ -17,7 +17,7 @@ package mx.org.grails
 
 import grails.test.*
 
-class SimpleControllerTests extends ControllerUnitTestCase {
+class FlickrControllerTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
@@ -27,6 +27,6 @@ class SimpleControllerTests extends ControllerUnitTestCase {
     }
 
     void testSomething() {
-
+      assert true
     }
 }
